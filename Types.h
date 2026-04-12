@@ -11,6 +11,7 @@
 #define ANONYS_TYPES_H
 
 #include <cstdint>
+#include <limits>
 #include "anonys/FsmId.h"
 
 namespace anonys
@@ -39,7 +40,7 @@ namespace anonys
 
 	struct DummyStates {
 		static constexpr uint16_t InvalidStateId{ 0 };
-		static constexpr anonys::StateDef Unhandled = { InvalidStateId, anonys::FsmId::Count_, nullptr, nullptr, nullptr, nullptr };
+		static constexpr anonys::StateDef Unhandled = { InvalidStateId, static_cast<anonys::FsmId>(std::numeric_limits<uint16_t>::max()), nullptr, nullptr, nullptr, nullptr };
 	};
 
 	using State = const StateDef;
