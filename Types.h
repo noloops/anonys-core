@@ -16,34 +16,34 @@
 
 namespace anonys
 {
-	struct EventId {
-		constexpr EventId(uint16_t id) : id{ id } {}
-		uint16_t const id;
-	};
-	static_assert(sizeof(EventId) == sizeof(uint16_t));
+    struct EventId {
+        constexpr EventId(uint16_t id) : id{ id } {}
+        uint16_t const id;
+    };
+    static_assert(sizeof(EventId) == sizeof(uint16_t));
 
-	static constexpr EventId MinTimoutEventId{ 60'001 };
+    static constexpr EventId MinTimoutEventId{ 60'001 };
 
-	struct Event {
-		EventId eventId;
-		void* pData;
-	};
+    struct Event {
+        EventId eventId;
+        void* pData;
+    };
 
-	struct StateDef {
-		uint16_t stateId;
-		FsmId fsmId;
-		const StateDef* pSuperState;
-		uint16_t(*pGetMembersSize)();
-		void (*pLiveCycle)(bool create, void* pTerminals, void* pMembers);
-		const StateDef* (*pHandleEvent)(void* pMembers, Event& event);
-	};
+    struct StateDef {
+        uint16_t stateId;
+        FsmId fsmId;
+        const StateDef* pSuperState;
+        uint16_t(*pGetMembersSize)();
+        void (*pLiveCycle)(bool create, void* pTerminals, void* pMembers);
+        const StateDef* (*pHandleEvent)(void* pMembers, Event& event);
+    };
 
-	struct DummyStates {
-		static constexpr uint16_t InvalidStateId{ 0 };
-		static constexpr anonys::StateDef Unhandled = { InvalidStateId, static_cast<anonys::FsmId>(std::numeric_limits<uint16_t>::max()), nullptr, nullptr, nullptr, nullptr };
-	};
+    struct DummyStates {
+        static constexpr uint16_t InvalidStateId{ 0 };
+        static constexpr anonys::StateDef Unhandled = { InvalidStateId, static_cast<anonys::FsmId>(std::numeric_limits<uint16_t>::max()), nullptr, nullptr, nullptr, nullptr };
+    };
 
-	using State = const StateDef;
+    using State = const StateDef;
 }
 
 #endif // ANONYS_TYPES_H

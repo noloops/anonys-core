@@ -19,50 +19,50 @@
 
 namespace anonys
 {
-	class FsmCore : private TimerCore {
-	public:
-		void initialize(FsmId fsmId, void* pTerminals, uint8_t* pAlignedBuffer, size_t bufferSize,
-			TimerService* pTimerService = nullptr);
+    class FsmCore : private TimerCore {
+    public:
+        void initialize(FsmId fsmId, void* pTerminals, uint8_t* pAlignedBuffer, size_t bufferSize,
+            TimerService* pTimerService = nullptr);
 
-		void setTracingService(TracingService* pTracingService = nullptr);
+        void setTracingService(TracingService* pTracingService = nullptr);
 
-		void handleEvent(Event& event);
+        void handleEvent(Event& event);
 
-		void handleTimeoutEvent(int16_t depth, EventId eventId);
+        void handleTimeoutEvent(int16_t depth, EventId eventId);
 
-		void executeTransition(const StateDef* pState);
+        void executeTransition(const StateDef* pState);
 
-		inline TimerCore& getTimerCore() { return *this; }
+        inline TimerCore& getTimerCore() { return *this; }
 
-	private:
-		struct El {
-			StateDef const* pState{nullptr};
-			uint8_t* pMembers{nullptr};
-		};
+    private:
+        struct El {
+            StateDef const* pState{nullptr};
+            uint8_t* pMembers{nullptr};
+        };
 
-		const StateDef* findSharedSuperState(const StateDef* pState);
+        const StateDef* findSharedSuperState(const StateDef* pState);
 
-		void popAll();
+        void popAll();
 
-		void popToState(const StateDef& state);
+        void popToState(const StateDef& state);
 
-		void pushToState(const StateDef* pState);
+        void pushToState(const StateDef* pState);
 
-		void push(const StateDef* pState);
+        void push(const StateDef* pState);
 
-		void pop();
+        void pop();
 
-		void* m_pTerminals{nullptr};
+        void* m_pTerminals{nullptr};
 
-		El m_stack[MaxNestedStates]{ };
-		int16_t m_depth{ -1 };
+        El m_stack[MaxNestedStates]{ };
+        int16_t m_depth{ -1 };
 
-		uint8_t* m_pMembersBegin{ nullptr };
-		uint8_t* m_pMembersEnd{ nullptr };
-		uint8_t* m_pMembersNext{ nullptr };
+        uint8_t* m_pMembersBegin{ nullptr };
+        uint8_t* m_pMembersEnd{ nullptr };
+        uint8_t* m_pMembersNext{ nullptr };
 
-		TracingService* m_pTracingService{ nullptr };
-	};
+        TracingService* m_pTracingService{ nullptr };
+    };
 }
 
 #endif // ANONYS_FSMBASE_H
