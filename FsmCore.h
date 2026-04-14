@@ -10,6 +10,7 @@
 #ifndef ANONYS_FSMBASE_H
 #define ANONYS_FSMBASE_H
 
+#include <cstddef>
 #include "Types.h"
 #include "AnonysManualConfig.h"
 #include "anonys/GeneratedConfig.h"

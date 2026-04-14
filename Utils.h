@@ -10,6 +10,7 @@
 #ifndef ANONYS_UTILS_H
 #define ANONYS_UTILS_H
 
+#include <cstddef>
 #include <limits>
 #include <new>
 
